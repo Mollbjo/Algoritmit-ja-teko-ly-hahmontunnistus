@@ -1,0 +1,17 @@
+[project]
+name = "algoritmit-ja-teko-ly-hahmontunnistus"
+version = "0.1.0"
+description = "Algorithm for facial recognition using machine learning"
+authors = [
+    {name = "Mollbjo",email = "joonamollberg@gmail.com"}
+]
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pylint (>=4.0.5,<5.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
