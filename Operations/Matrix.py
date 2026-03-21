@@ -7,7 +7,7 @@ class Matrix:
 
     def add(self, matrix):
         if isinstance(matrix, Matrix):
-            if self.rowns != matrix.rows or self.columns != matrix.columns:
+            if self.rows != matrix.rows or self.columns != matrix.columns:
                 raise ValueError("Matriisien oltava samankokoisia")
             result = Matrix(self.rows, self.columns)
         for i in range(self.rows):
@@ -23,7 +23,7 @@ class Matrix:
     
     def subtract(self, matrix):
         if isinstance(matrix, Matrix):
-            if self.rowns != matrix.rows or self.columns != matrix.columns:
+            if self.rows != matrix.rows or self.columns != matrix.columns:
                 raise ValueError("Matriisien oltava samankokoisia")
             result = Matrix(self.rows, self.columns)
         for i in range(self.rows):
@@ -49,4 +49,34 @@ class Matrix:
             return result
         else:
             raise TypeError("Argumentti ei ole Matrix-luokan olio")
+        
+    def elementwise_multiplication(self, matrix):
+        if isinstance(matrix, Matrix):
+            if self.rows != matrix.rows or self.columns != matrix.columns:
+                raise ValueError("Matriisien oltava samankokoisia")
+            result = Matrix(self.rows, self.columns)
+        for i in range(self.rows):
+            for j in range(self.columns):
+                result.data[i][j] = self.data[i][j] * matrix.data[i][j]
+        else:
+            result = Matrix(self.rows, self.columns)
+            for i in range(self.rows):
+                for j in range(self.columns):
+                    result.data[i][j] = self.data[i][j] * matrix 
+        
+        return result
+    
+    def transpose(self):
+        result = Matrix(self.columns, self.rows)
+        for i in range(self.rows):
+            for j in range(self.columns):
+                result.data[j][i] = self.data[i][j]
+        return result
+    
+    def map(self, func):
+        result = Matrix(self.rows, self.columns)
+        for i in range(self.rows):
+            for j in range(self.columns):
+                result.data[i][j] = func(self.data[i][j])
+        return result
         
