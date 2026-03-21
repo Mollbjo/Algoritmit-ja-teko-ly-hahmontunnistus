@@ -1,4 +1,5 @@
 import os
+import csv
 
 def load_data(dataset_path):
     training_data = []
@@ -18,6 +19,16 @@ def load_data(dataset_path):
                 testing_data.append(image_vector)
 
     return training_data, testing_data
+
+def write_data(training_data, testing_data):
+    if not os.path.exists("data/training_data.csv"):
+        with open("data/training_data.csv", "w") as f:
+            for data_point in training_data:
+                f.write(",".join(str(x) for x in data_point) + "\n")
+    elif not os.path.exists("data/testing_data.csv"):
+        with open("data/testing_data.csv", "w") as f:
+            for data_point in testing_data:
+                f.write(",".join(str(x) for x in data_point) + "\n")
 
 def read_pgm(filepath):
     with open(filepath, "rb") as f:
@@ -45,3 +56,4 @@ if __name__ == "__main__":
         training_data, testing_data = load_data(path)
         print("Training data size:", len(training_data))
         print("Testing data size:", len(testing_data))
+        write_data(training_data, testing_data)
