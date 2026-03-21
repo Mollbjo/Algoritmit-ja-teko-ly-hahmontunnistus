@@ -17,7 +17,6 @@ def load_data(dataset_path):
                 training_data.append(image_vector)
             else:
                 testing_data.append(image_vector)
-
     return training_data, testing_data
 
 def write_data(training_data, testing_data):
