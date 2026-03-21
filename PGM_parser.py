@@ -1,5 +1,24 @@
 import os
 
+def load_data(dataset_path):
+    training_data = []
+    testing_data = []
+    
+    for folder_id in range(1, 41):
+        folder_path = os.path.join(dataset_path, f"s{folder_id}")
+
+        for image_id in range(1, 11):
+            image_path = os.path.join(folder_path, f"{image_id}.pgm")
+
+            image_vector = read_pgm(image_path)[0]
+
+            if image_id < 8:
+                training_data.append(image_vector)
+            else:
+                testing_data.append(image_vector)
+
+    return training_data, testing_data
+
 def read_pgm(filepath):
     with open(filepath, "rb") as f:
         #Lukee PGM-tiedoston tyyppi
@@ -21,8 +40,8 @@ def read_pgm(filepath):
     
 if __name__ == "__main__":
     #Esimerkki PGM-tiedoston lukemisesta
-    pgm_file = "datasets/archive/s1/1.pgm"
-    if os.path.exists("datasets/archive/s1/1.pgm"):
-        data, width, height = read_pgm(pgm_file)
-        print("Kuvan leveys: {0}, korkeus: {1}".format(width, height))
-        print("Normalisoitu data (ensimmäiset 10 pistettä):", data[:10])
+    path = "datasets/archive"
+    if os.path.exists("datasets/archive"):
+        training_data, testing_data = load_data(path)
+        print("Training data size:", len(training_data))
+        print("Testing data size:", len(testing_data))
