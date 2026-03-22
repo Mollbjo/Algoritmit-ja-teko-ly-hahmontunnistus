@@ -10,9 +10,9 @@ class Matrix:
             if self.rows != matrix.rows or self.columns != matrix.columns:
                 raise ValueError("Matriisien oltava samankokoisia")
             result = Matrix(self.rows, self.columns)
-        for i in range(self.rows):
-            for j in range(self.columns):
-                result.data[i][j] = self.data[i][j] + matrix.data[i][j]
+            for i in range(self.rows):
+                for j in range(self.columns):
+                    result.data[i][j] = self.data[i][j] + matrix.data[i][j]
         else:
             result = Matrix(self.rows, self.columns)
             for i in range(self.rows):
@@ -26,9 +26,9 @@ class Matrix:
             if self.rows != matrix.rows or self.columns != matrix.columns:
                 raise ValueError("Matriisien oltava samankokoisia")
             result = Matrix(self.rows, self.columns)
-        for i in range(self.rows):
-            for j in range(self.columns):
-                result.data[i][j] = self.data[i][j] - matrix.data[i][j]
+            for i in range(self.rows):
+                for j in range(self.columns):
+                    result.data[i][j] = self.data[i][j] - matrix.data[i][j]
         else:
             result = Matrix(self.rows, self.columns)
             for i in range(self.rows):
@@ -42,10 +42,15 @@ class Matrix:
             if self.columns != matrix.rows:
                 raise ValueError("Matriisien koot eivät ole sopivia")
             result = Matrix(self.rows, matrix.columns)
-            for i in range(result.rows):
-                for j in range(result.columns):
+            matrix_transposed = matrix.transpose()
+            for i in range(self.rows):
+                row_A = self.data[i]
+                for j in range(matrix.columns):
+                    row_B = matrix_transposed.data[j]
+                    sum = 0.0
                     for k in range(self.columns):
-                        result.data[i][j] += self.data[i][k] * matrix.data[k][j]
+                        sum += row_A[k] * row_B[k]
+                    result.data[i][j] = sum
             return result
         else:
             raise TypeError("Argumentti ei ole Matrix-luokan olio")
@@ -55,9 +60,9 @@ class Matrix:
             if self.rows != matrix.rows or self.columns != matrix.columns:
                 raise ValueError("Matriisien oltava samankokoisia")
             result = Matrix(self.rows, self.columns)
-        for i in range(self.rows):
-            for j in range(self.columns):
-                result.data[i][j] = self.data[i][j] * matrix.data[i][j]
+            for i in range(self.rows):
+                for j in range(self.columns):
+                    result.data[i][j] = self.data[i][j] * matrix.data[i][j]
         else:
             result = Matrix(self.rows, self.columns)
             for i in range(self.rows):

@@ -1,5 +1,4 @@
-from mean_face import mean_face_vector
-import Matrix
+from . import Matrix
 import csv
 
 def build_matrix(mean_face):
@@ -21,5 +20,4 @@ def build_matrix(mean_face):
 
         return matrix
 
-build_matrix(mean_face_vector)
 
