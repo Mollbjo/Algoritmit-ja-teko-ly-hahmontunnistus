@@ -37,21 +37,35 @@ def get_eigen_jacobi(matrix_data, max_iterations=1000, tolerance=1e-9):
         cosin = math.cos(theta)
         sin = math.sin(theta)
 
-        L[p][p] = cosin**2 * L[p][p] + sin**2 * L[q][q] + 2 * cosin * sin * L[p][q]
-        L[q][q] = sin**2 * L[p][p] + cosin**2 * L[q][q] - 2 * cosin * sin * L[p][q]
+        # 1. Tallenna vanhat arvot väliaikaisesti
+        L_pp = L[p][p]
+        L_qq = L[q][q]
+        L_pq = L[p][q]
+
+        # 2. Käytä laskennassa vanhoja (tallennettuja) arvoja
+        L[p][p] = cosin**2 * L_pp + sin**2 * L_qq + 2 * cosin * sin * L_pq
+        L[q][q] = sin**2 * L_pp + cosin**2 * L_qq - 2 * cosin * sin * L_pq
         L[p][q] = 0.0
         L[q][p] = 0.0
 
         for i in range(length):
             if i != p and i != q:
-                L[i][p] = cosin * L[i][p] + sin * L[i][q]
-                L[i][q] = -sin * L[i][p] + cosin * L[i][q]
+                # Tallenna vanhat arvot
+                L_ip = L[i][p]
+                L_iq = L[i][q]
+                
+                L[i][p] = cosin * L_ip + sin * L_iq
+                L[i][q] = -sin * L_ip + cosin * L_iq
                 L[p][i] = L[i][p]
                 L[q][i] = L[i][q]
 
         for i in range(length):
-            eigenvectors[i][p] = cosin * eigenvectors[i][p] + sin * eigenvectors[i][q]
-            eigenvectors[i][q] = -sin * eigenvectors[i][p] + cosin * eigenvectors[i][q]
+            # Tallenna vanhat vektorien arvot!
+            V_ip = eigenvectors[i][p]
+            V_iq = eigenvectors[i][q]
+            
+            eigenvectors[i][p] = cosin * V_ip + sin * V_iq
+            eigenvectors[i][q] = -sin * V_ip + cosin * V_iq
 
     eigenvalues = [L[i][i] for i in range(length)]
 
