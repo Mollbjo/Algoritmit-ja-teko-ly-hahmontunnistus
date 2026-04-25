@@ -31,28 +31,28 @@ def write_data(training_data, testing_data):
 
 def read_pgm(filepath):
     with open(filepath, "rb") as f:
-        #Lukee PGM-tiedoston tyyppi
+        # Lukee PGM-tiedoston tyypin.
         file_type = f.readline().strip()
         if file_type != b'P5':
-            raise ValueError("Tiedosto tyyppiä {0}, ei tuettu, tiedoston pitää olla tyyppiä P5".format(file_type))
+            raise ValueError("Tiedostotyyppi {0} ei ole tuettu, tiedoston tulee olla tyyppiä P5".format(file_type))
         else:
-        #Lukee ulottuvuudet
+            # Lukee ulottuvuudet.
             line = f.readline()
             width, height = [int(i) for i in line.split()]
-            #Lukee maksimi grayscale arvon
+            # Lukee harmaasävyn maksimiarvon.
             max_gray = int(f.readline().strip())
-            #Lukee kuvan binääri datan ja muuttaa sen listaksi kokonaislukuja skaalalla 0-255
+            # Lukee kuvan binaaridatan ja muuntaa sen kokonaislukulistaksi välille 0-255.
             image_data = list(f.read())
-            #Normalisoidaan data, jokaista pixeliä kohden
+            # Normalisoi datan jokaiselle pikselille.
             normalized_data = [data_point / max_gray for data_point in image_data]
 
             return normalized_data, width, height
     
 if __name__ == "__main__":
-    #Esimerkki PGM-tiedoston lukemisesta
+    # Esimerkki PGM-tiedoston lukemisesta.
     path = "datasets/archive"
     if os.path.exists("datasets/archive"):
         training_data, testing_data = load_data(path)
-        print("Training data size:", len(training_data))
-        print("Testing data size:", len(testing_data))
+        print("Opetusdatan koko:", len(training_data))
+        print("Testidatan koko:", len(testing_data))
         write_data(training_data, testing_data)

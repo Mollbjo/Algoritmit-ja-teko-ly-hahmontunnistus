@@ -2,8 +2,8 @@ from . import Matrix
 import csv
 
 def build_matrix(mean_face):
-    """Rakentaa matriisin, jossa jokainen kolumni on training datan vektori, josta on vähennetty mean face
-    vektori
+    """Rakentaa matriisin, jossa jokainen sarake on opetusdatan vektori,
+    josta on vähennetty keskiarvokasvovektori.
     """
     with open("data/training_data.csv", "r") as f:
         reader = csv.reader(f)
@@ -15,7 +15,7 @@ def build_matrix(mean_face):
         for i in range(columns):
             vector = data[i]
             for j in range(rows):
-                #Vähennetään kolumnista mean face vektori
+                # Vähennetään sarakkeesta keskiarvokasvovektori.
                 matrix.data[j][i] = float((float(vector[j]) - mean_face[j]))
 
         return matrix

@@ -2,7 +2,7 @@ from . import Matrix
 
 def get_top_k_eigenfaces(normalized_U_matrix, k):
     """
-    Slices the normalized Eigenface matrix to keep only the top K columns.
+    Leikkaa normalisoidusta ominaiskasvomatriisista mukaan vain K ensimmäistä saraketta.
     """
     rows = normalized_U_matrix.rows
     
@@ -29,7 +29,8 @@ def project_faces(U_k_matrix, mean_subtracted_matrix):
 
 def extract_labeled_signatures(weights_matrix, images_per_person=7):
     """
-    Muuntaa painomatriisin listaksi monikkoja (tuple): (signature_vector, subject_id). Tässä oletetaan, että opetusdata oli järjestetty peräkkäin kohteittain.
+    Muuntaa painomatriisin monikkolistaksi muodossa (signatuurivektori, kohde_id).
+    Tässä oletetaan, että opetusdata on järjestetty peräkkäin kohteittain.
     """
     num_signatures = weights_matrix.columns
     k_dimensions = weights_matrix.rows
