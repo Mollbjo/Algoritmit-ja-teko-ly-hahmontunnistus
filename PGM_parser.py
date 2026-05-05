@@ -29,24 +29,40 @@ def write_data(training_data, testing_data):
             for data_point in testing_data:
                 f.write(",".join(str(x) for x in data_point) + "\n")
 
-def read_pgm(filepath):
-    with open(filepath, "rb") as f:
-        # Lukee PGM-tiedoston tyypin.
-        file_type = f.readline().strip()
-        if file_type != b'P5':
-            raise ValueError("Tiedostotyyppi {0} ei ole tuettu, tiedoston tulee olla tyyppiä P5".format(file_type))
-        else:
-            # Lukee ulottuvuudet.
-            line = f.readline()
-            width, height = [int(i) for i in line.split()]
-            # Lukee harmaasävyn maksimiarvon.
-            max_gray = int(f.readline().strip())
-            # Lukee kuvan binaaridatan ja muuntaa sen kokonaislukulistaksi välille 0-255.
-            image_data = list(f.read())
-            # Normalisoi datan jokaiselle pikselille.
-            normalized_data = [data_point / max_gray for data_point in image_data]
+def read_pgm(filename):
+    """
+    Lukee P5-tyyppisen PGM-tiedoston ja palauttaa normalisoidut pikselit sekä mitat.
+    Ohittaa automaattisesti #-alkuiset kommenttirivit.
+    """
+    with open(filename, 'rb') as f:
+        # 1. Tarkistetaan "Magic Number" (P5)
+        magic_number = f.readline().strip()
+        if magic_number != b'P5':
+            raise ValueError(f"Tiedosto ei ole P5 PGM -muodossa: {magic_number}")
+            
+        # Apufunktio, joka lukee seuraavan rivin, mutta hyppää kommenttien yli
+        def read_next_valid_line():
+            while True:
+                line = f.readline()
+                if not line.startswith(b'#'):
+                    return line
 
-            return normalized_data, width, height
+        # 2. Luetaan leveys ja korkeus (ohittaen mahdolliset GIMPin kommentit)
+        dimensions_line = read_next_valid_line()
+        width, height = [int(i) for i in dimensions_line.split()]
+        
+        # 3. Luetaan maksimiarvo (yleensä 255)
+        maxval_line = read_next_valid_line()
+        maxval = int(maxval_line.strip())
+        
+        # 4. Luetaan pikselidata ja normalisoidaan (0.0 - 1.0)
+        pixel_data = []
+        # Luetaan tarkalleen width * height määrä tavuja
+        raw_data = f.read(width * height)
+        for byte in raw_data:
+            pixel_data.append(byte / maxval)
+            
+        return pixel_data, width, height
     
 if __name__ == "__main__":
     # Esimerkki PGM-tiedoston lukemisesta.
