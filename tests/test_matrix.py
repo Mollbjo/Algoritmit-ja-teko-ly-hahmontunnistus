@@ -51,3 +51,21 @@ class TestMatrix(unittest.TestCase):
         self.assertEqual(transposed.rows, 3)
         self.assertEqual(transposed.columns, 2)
         self.assertEqual(transposed.data, [[1.0, 4.0], [2.0, 5.0], [3.0, 6.0]])
+
+    def test_elementwise_multiplication(self):
+        m1 = Matrix(2, 2)
+        m1.data = [[1.0, 2.0], [3.0, 4.0]]
+        m2 = Matrix(2, 2)
+        m2.data = [[2.0, 3.0], [4.0, 5.0]]
+
+        result = m1.elementwise_multiplication(m2)
+
+        self.assertEqual(result.data, [[2.0, 6.0], [12.0, 20.0]])
+
+    def test_map_applies_function(self):
+        m = Matrix(2, 2)
+        m.data = [[1.0, 2.0], [3.0, 4.0]]
+
+        result = m.map(lambda value: value + 1.0)
+
+        self.assertEqual(result.data, [[2.0, 3.0], [4.0, 5.0]])

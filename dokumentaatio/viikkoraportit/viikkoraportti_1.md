@@ -1,5 +1,7 @@
 # Viikkoraportti 1
 
+Käytetyt työtunnit: 8 h
+
 Ensimmäisellä viikolla alustin projektin, luoden ensimmäisen viikkoraportin sekä vaatimusmäärittelyn. Tutkin aiheitta paljon eri lähteistä, jotta saisin paremman käsityksen projektin laajuudesta sekä vaativuudesta. Aloitin opiskelun perusteella jo alustavasti suunnittelemaan projektia teoreettisella tasolla.
 
 Ohjelma on edistynyt suunnittelu vaiheeseen, mutta koodia ei ole vielä kirjoitettu. Opiskelin paljon ja syvällisesti aiheesta koodin kirjoittamista varten ja asian selkää käsittämistä varten. 

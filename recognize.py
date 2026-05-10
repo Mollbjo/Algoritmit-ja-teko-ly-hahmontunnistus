@@ -66,7 +66,7 @@ if __name__ == "__main__":
             print("TULOS: KUVASSA ON IHMISKASVO!")
             print(f"Ennustettu henkilö (ID): {predicted_id}")
             print(f"(Luottamus/Etäisyys: {score:.2f})")
-            print(f"(Rekonstruktiovirhe: {score:.2f} | Sallittu raja: 24.00)") # Tässä score on etäisyys, voit halutessasi muokata returnia palauttamaan molemmat
+            print(f"(Rekonstruktiovirhe: {score:.2f} | Sallittu raja: 24.00)")
         
     except FileNotFoundError:
         print(f"Virhe: Tiedostoa '{image_path}' ei löytynyt!")
